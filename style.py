@@ -4,9 +4,7 @@ import contextlib
 
 from cycler import cycler
 
-from peckcharts.colors import (
-    CREAM, GOLD, INK, MUTED, NAVY, PALETTE, PALETTE_DARK, SILK,
-)
+from colors import CREAM, GOLD, INK, MUTED, NAVY, PALETTE, PALETTE_DARK, SILK
 
 _FONTS = {
     "sans-serif": ["Source Sans 3", "Source Sans Pro", "Helvetica", "sans-serif"],
