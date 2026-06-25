@@ -12,6 +12,10 @@ INK = "#1A1A1A"
 MUTED = "#6B7280"
 WHITE = "#FFFFFF"
 
+# Dark-theme surface tokens
+CHARCOAL = "#252A36"   # primary dark background
+GRID_DARK = "#3A4150"  # subtle gridline tuned for CHARCOAL
+
 # Status colors
 RED = "#E74C3C"
 YELLOW = "#F1C40F"

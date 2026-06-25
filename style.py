@@ -4,14 +4,17 @@ import contextlib
 
 from cycler import cycler
 
-from peckcharts.colors import (
-    CREAM, GOLD, INK, MUTED, NAVY, PALETTE, PALETTE_DARK, SILK,
+from colors import (
+    CHARCOAL, CREAM, GOLD, GRID_DARK, INK, MUTED, NAVY,
+    PALETTE, PALETTE_DARK, SILK, WHITE,
 )
 
 _FONTS = {
-    "sans-serif": ["Source Sans 3", "Source Sans Pro", "Helvetica", "sans-serif"],
-    "serif": ["Playfair Display", "Georgia", "serif"],
-    "monospace": ["DM Mono", "Consolas", "monospace"],
+    "sans-serif": ["Roboto", "Helvetica", "Arial", "DejaVu Sans", "sans-serif"],
+    "serif":      ["DM Serif Display", "Playfair Display", "Georgia",
+                   "DejaVu Serif", "serif"],
+    "monospace":  ["DM Mono", "Menlo", "Monaco", "Consolas",
+                   "DejaVu Sans Mono", "Courier New", "monospace"],
 }
 
 
@@ -65,15 +68,15 @@ def _light_params():
 
 def _dark_params():
     return {
-        "axes.facecolor": NAVY,
-        "figure.facecolor": NAVY,
-        "savefig.facecolor": NAVY,
-        "axes.edgecolor": "#2A3D66",
-        "axes.labelcolor": CREAM,
-        "text.color": CREAM,
-        "xtick.color": SILK,
-        "ytick.color": SILK,
-        "grid.color": "#2A3D66",
+        "axes.facecolor": CHARCOAL,
+        "figure.facecolor": CHARCOAL,
+        "savefig.facecolor": CHARCOAL,
+        "axes.edgecolor": GRID_DARK,
+        "axes.labelcolor": WHITE,
+        "text.color": WHITE,
+        "xtick.color": WHITE,
+        "ytick.color": WHITE,
+        "grid.color": GRID_DARK,
         "axes.prop_cycle": cycler("color", PALETTE_DARK),
     }
 
@@ -89,6 +92,36 @@ def apply(mode="light"):
     params = _base_params()
     params.update(_dark_params() if mode == "dark" else _light_params())
     plt.rcParams.update(params)
+
+
+def set_title(ax, title, subtitle=None, *, color=None, subtitle_color=None):
+    """Apply the project title style to an axes.
+
+    Bold serif title (DM Serif Display) with an optional normal-weight sans
+    subtitle (Roboto) immediately below. Left-aligned with the axes.
+    """
+    import matplotlib.pyplot as plt
+
+    title_color = color or plt.rcParams["text.color"]
+    sub_color = subtitle_color or plt.rcParams["text.color"]
+
+    if subtitle:
+        # The subtitle sits in matplotlib's normal title slot; the bold title
+        # is drawn above it via ax.text so vertical spacing is automatic and
+        # bbox_inches="tight" crops correctly. wrap=True lets long titles
+        # break at the figure-edge instead of clipping.
+        ax.set_title(subtitle, loc="left", pad=4,
+                     fontsize=12, fontweight="normal",
+                     fontfamily="sans-serif", color=sub_color)
+        t = ax.text(0.0, 1.05, title, transform=ax.transAxes,
+                    ha="left", va="bottom",
+                    fontsize=20, fontweight="bold",
+                    fontfamily="serif", color=title_color)
+        t.set_wrap(True)
+    else:
+        ax.set_title(title, loc="left", pad=8,
+                     fontsize=20, fontweight="bold",
+                     fontfamily="serif", color=title_color)
 
 
 @contextlib.contextmanager

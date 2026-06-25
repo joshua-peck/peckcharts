@@ -1,3 +1,5 @@
-"""peckcharts - chart styling for joshuampeck.com"""
+"""peckcharts - chart styling for joshuampeck.com
 
-from peckcharts import colors, style
+Modules now live at the project root (colors.py, style.py, export.py).
+Import them directly, e.g. ``import style; import colors``.
+"""
