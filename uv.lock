@@ -1059,6 +1059,7 @@ dependencies = [
     { name = "notebook" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "requests" },
 ]
 
 [package.metadata]
@@ -1067,6 +1068,7 @@ requires-dist = [
     { name = "notebook", specifier = ">=7.6.0" },
     { name = "numpy", specifier = ">=2.5.0" },
     { name = "pandas", specifier = ">=3.0.3" },
+    { name = "requests", specifier = ">=2.34.2" },
 ]
 
 [[package]]
